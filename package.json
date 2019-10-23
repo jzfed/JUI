@@ -1,26 +1,37 @@
 {
-  "name": "jui",
-  "version": "1.0.0",
-  "description": "JUI is an open source javascript UI components library.",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/jzfed/JUI.git"
-  },
-  "keywords": [
-    "JUI"
-  ],
-  "author": "Jason Zhang",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/jzfed/JUI/issues"
-  },
-  "homepage": "https://github.com/jzfed/JUI#readme",
-  "devDependencies": {
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
-  }
+    "name": "jui",
+    "version": "1.0.0",
+    "description": "JUI is an open source javascript UI components library.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "build": "webpack -p",
+        "watch": "webpack --watch --mode=development",
+        "start": "webpack-dev-server --open"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/jzfed/JUI.git"
+    },
+    "keywords": [
+        "JUI"
+    ],
+    "author": "Jason Zhang",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/jzfed/JUI/issues"
+    },
+    "homepage": "https://github.com/jzfed/JUI#readme",
+    "devDependencies": {
+        "@babel/core": "^7.6.4",
+        "babel-core": "^6.26.3",
+        "babel-loader": "^8.0.6",
+        "babel-preset-env": "^1.7.0",
+        "chai": "^4.2.0",
+        "mocha": "^6.2.2",
+        "sinon": "^7.5.0",
+        "webpack": "^4.41.2",
+        "webpack-cli": "^3.3.9",
+        "webpack-dev-server": "^3.9.0"
+    }
 }
