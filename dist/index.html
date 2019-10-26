@@ -6,9 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>JUI</title>
+    <link rel="stylesheet" href="./jui.css" />
 </head>
 
 <body>
+    <div class="jui-content">
+        <p data-tip="{ 'tipDom': '#tipDomContent' }">
+            Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip
+            Sample
+            Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample <a href="#"
+                data-tip="{ 'tipText': 'Tip content inline.' }">Tip Inline Tip <strong>Inline</strong> Tip Inline</a>
+            Tip
+            Sample Tip Sample Tip Sample
+            Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip
+            Sample
+            Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample
+        </p>
+    </div>
+    <p id="tipDomContent" class="jui-tip-dom">Tip content <a href="#">link</a> with html</p>
     <script src="./bundle.js"></script>
 </body>
 

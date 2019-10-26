@@ -1,0 +1,24 @@
+//Tip
+.jui-tip-dom {
+    display: none;
+}
+
+.jui-tip {
+    position: fixed;
+    top: 0;
+    left: 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 5px 8px;
+    visibility: hidden;
+    background-color: #fff;
+    box-shadow: #ccc 1px 1px 5px;
+    opacity: 0;
+    transition: visibility 0s, opacity .5s linear;
+
+    &.show {
+        display: block;
+        visibility: visible;
+        opacity: 1;
+    }
+}

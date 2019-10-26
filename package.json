@@ -2,11 +2,11 @@
     "name": "jui",
     "version": "1.0.0",
     "description": "JUI is an open source javascript UI components library.",
-    "main": "index.js",
+    "main": "./src/index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "mocha",
         "build": "webpack -p",
-        "watch": "webpack --watch --mode=development",
+        "watch": "webpack --watch",
         "start": "webpack-dev-server --open"
     },
     "repository": {
@@ -24,12 +24,23 @@
     "homepage": "https://github.com/jzfed/JUI#readme",
     "devDependencies": {
         "@babel/core": "^7.6.4",
+        "@babel/preset-env": "^7.6.3",
+        "@babel/register": "^7.6.2",
         "babel-core": "^6.26.3",
         "babel-loader": "^8.0.6",
         "babel-preset-env": "^1.7.0",
+        "canvas": "^2.6.0",
         "chai": "^4.2.0",
+        "css-loader": "^3.2.0",
+        "extract-text-webpack-plugin": "^4.0.0-beta.0",
+        "jsdom": "^15.2.0",
+        "jsdom-global": "^3.0.2",
+        "less": "^3.10.3",
+        "less-loader": "^5.0.0",
         "mocha": "^6.2.2",
+        "normalize.css": "^8.0.1",
         "sinon": "^7.5.0",
+        "style-loader": "^1.0.0",
         "webpack": "^4.41.2",
         "webpack-cli": "^3.3.9",
         "webpack-dev-server": "^3.9.0"
