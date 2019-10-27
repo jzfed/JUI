@@ -5,11 +5,11 @@
   position: fixed;
   top: 0;
   left: 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 5px 8px;
+  border-radius: 10px;
+  padding: 10px 10px;
   visibility: hidden;
-  background-color: #fff;
+  color: #FFF;
+  background-color: rgba(0, 0, 0, 0.7);
   box-shadow: #ccc 1px 1px 5px;
   opacity: 0;
   transition: visibility 0s, opacity 0.5s linear;
@@ -18,6 +18,9 @@
   display: block;
   visibility: visible;
   opacity: 1;
+}
+.jui-tip.show .jui-tip-dom {
+  display: block;
 }
 .jui-content {
   max-width: 1024px;

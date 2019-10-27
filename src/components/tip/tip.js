@@ -33,13 +33,12 @@ class Tip {
             if (tipConfig.hasOwnProperty('tipDom')) {
                 let tipContentDom = null;
                 if (typeof tipConfig.tipDom === 'boolean') {
-                    tipContentDom = target.querySelector('.jui-tip-dom').cloneNode(true);
+                    tipContentDom = target.querySelector('.jui-tip-dom');
                 }
                 if (typeof tipConfig.tipDom === 'string') {
-                    tipContentDom = document.querySelector(tipConfig.tipDom).cloneNode(true);
+                    tipContentDom = document.querySelector(tipConfig.tipDom);
                 }
-                this.tipDom.innerHTML = '';
-                this.tipDom.append(tipContentDom);
+                this.tipDom.innerHTML = tipContentDom.outerHTML;
             }
 
             const tipOffsetTop = target.offsetHeight;
