@@ -18,6 +18,7 @@ We have some code sample in the directory example. We will build a detailed API 
 
 How to develop it?
 ----
+`npm run start`
 
 Trouble shouting
 ----

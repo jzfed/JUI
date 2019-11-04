@@ -1,0 +1,92 @@
+.jui-form {
+    padding: 15px;
+    margin: 0 auto;
+    display: block;
+
+    .jui-form-group {
+        margin: 5px 0;
+        overflow: hidden;
+
+        label {
+            display: block;
+            width: 30%;
+            text-align: right;
+            float: left;
+            height: 36px;
+            line-height: 36px;
+
+        }
+
+        input {
+            height: 24px;
+            margin-top: 3px;
+            margin-bottom: 3px;
+            display: inline-block;
+            margin-left: 5px;
+            padding-left: 5px;
+            padding-right: 5px;
+            border: 1px solid #CCC;
+            transition: border ease-in-out .3s;
+            // display: inline-block;
+        }
+
+        input[type="checkbox"],
+        input[type="radio"] {
+            height: auto;
+            margin-right: 5px;
+        }
+
+        select {
+            display: inline-block;
+            margin-left: 5px;
+            height: 24px;
+            margin-top: 6px;
+        }
+
+        textarea {
+            margin-left: 5px;
+            padding: 5px;
+            border: 1px solid #CCC;
+        }
+
+        &.no-label {
+            margin-left: 30%;
+            padding-left: 5px;
+        }
+
+    }
+
+    .jui-form-action {
+        margin-left: 30%;
+
+        input {
+            display: inline-block;
+            margin-left: 5px;
+        }
+    }
+
+    //Validation namespace
+    &.jui-validate {
+        .jui-form-group {
+            .jui-validate-msg {
+                margin-left: 30%;
+                padding-left: 5px;
+                height: 18px;
+                line-height: 18px;
+                color: red;
+            }
+
+            &.jui-input-error {
+
+                input,
+                textarea,
+                select {
+                    border: 1px solid red;
+                }
+
+            }
+
+
+        }
+    }
+}

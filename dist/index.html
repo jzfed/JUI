@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="jui-content">
+    <!-- <div class="jui-content">
         <p data-tip="{ 'tipDom': '#tipDomContent' }">
             Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip
             Sample
@@ -22,8 +22,52 @@
             Sample
             Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample Tip Sample
         </p>
-    </div>
+    </div> -->
     <p id="tipDomContent" class="jui-tip-dom">Tip content <a href="#">link</a> with html</p>
+    <hr />
+    <form class="jui-form" action="#" method="get">
+        <div class="jui-form-group">
+            <label for="username">Username</label>
+            <input type="text" name="username" id="username" maxlength="8">
+        </div>
+        <div class="jui-form-group">
+            <label for="password">Password</label>
+            <input type="password" name="password" id="password">
+        </div>
+        <div class="jui-form-group">
+            <label for="email">Email</label>
+            <input type="text" name="email" id="email">
+        </div>
+        <div class="jui-form-group">
+            <label for="telephone">Tel</label>
+            <input type="tel" name="telephone" id="telephone">
+        </div>
+        <div class="jui-form-group">
+            <label for="gender">Gender</label>
+            <select name="gender" id="gender">
+                <option value="noSelect" selected>No Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+            </select>
+        </div>
+        <div class="jui-form-group">
+            <label for="information">information</label>
+            <textarea name="information" id="information" cols="30" rows="10"></textarea>
+        </div>
+        <div class="jui-form-group no-label">
+            <p><input type="checkbox" name="agreeWithPolicy" id="agreeWithPolicy">I had read the policy and agreed with
+                it.</p>
+        </div>
+        <div class="jui-form-action">
+            <input class="jui-button" type="submit" value="Submit" />
+        </div>
+    </form>
+    <hr />
+    <div class="jui-ac-con">
+        <input type="text" name="search" id="search">
+        <div class="jui-ac-list"></div>
+    </div>
+    <div style="height: 2000px"></div>
     <script src="./bundle.js"></script>
 </body>
 

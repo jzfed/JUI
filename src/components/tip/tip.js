@@ -1,8 +1,9 @@
 class Tip {
-    constructor() {
+    constructor(config = {}) {
 
+        this.config = config;
         this.tipOffsetTop = 5;
-        this.hideDelay = 2000;
+        this.hideDelay = 500;
         this.target = null;
         this.timmer = null;
 
@@ -24,7 +25,7 @@ class Tip {
     showTip(e) {
         const target = e.target;
         if ((target.hasAttribute('data-tip') && this.target !== target)) {
-            console.log('mouseover');
+            // console.log('mouseover');
             this.showTipDom(target);
             const tipConfig = JSON.parse(target.dataset.tip.replace(/\'/g, '"'));
             if (tipConfig.hasOwnProperty('tipText')) {
@@ -56,7 +57,7 @@ class Tip {
         const target = e.relatedTarget;
         if (target === null) return;
         if (!target.hasAttribute('data-tip') && !target.closest('[data-tip]') && !target.closest('.jui-tip')) {
-            console.log('mouseout');
+            // console.log('mouseout');
             this.timmer = setTimeout(() => this.hideTipDom(), this.hideDelay);
         }
     }
