@@ -67,6 +67,28 @@ const Util = {
             return cache[key] = fn.apply(saveThis, args);
         }
     },
+    curry(fn) {
+        // let allArgs = []; //
+        // return function cur(...args) {
+        //     const saveThis = this;
+        //     allArgs = allArgs.concat(args);
+        //     if (allArgs.length === fn.length) {
+        //         const result = fn.apply(saveThis, allArgs);
+        //         allArgs.length = 0;
+        //         return result;
+        //     }
+        //     return cur; //Return a function for the next function call to get the parameter.
+        // }
+        return function cur(...args) {
+            const saveThis = this;
+            if (args.length >= fn.length) {
+                return fn.apply(saveThis, args);
+            }
+            return function (...otherArgs) { //Return a function for the next function call to get the parameter.
+                return cur.apply(saveThis, args.concat(otherArgs)); //Pass the merged parameter to the next call. 
+            }
+        }
+    }
 }
 export {
     Util,

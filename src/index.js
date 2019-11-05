@@ -161,3 +161,17 @@ console.timeEnd('ComputeCacheTime1');
 console.time('ComputeCacheTime2');
 console.log(highCPUComputeCache(10000));
 console.timeEnd('ComputeCacheTime2');
+
+//Curry Test
+const sumTest = function (a, b, c) {
+    return a + b + c;
+}
+console.log(sumTest(1, 2, 3));
+const sumTestCurry = Util.curry(sumTest);
+console.log(sumTestCurry(1)(2)(3));
+console.log(sumTestCurry(1)(2, 3));
+console.log(sumTestCurry(1, 2, 3));
+
+const sumTestCurry1 = sumTestCurry(1);
+console.log(sumTestCurry1(2, 3));
+console.log(sumTestCurry1(2)(3));
