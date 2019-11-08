@@ -23,6 +23,16 @@ import {
     Util
 } from './util';
 
+//Dragable
+import {
+    DragAble
+} from './components/drag/drag';
+
+//Promise
+import {
+    PromiseJUI
+} from './promise';
+
 //Content
 import './components/content/content.less';
 import './components/form/form.less';
@@ -175,3 +185,74 @@ console.log(sumTestCurry(1, 2, 3));
 const sumTestCurry1 = sumTestCurry(1);
 console.log(sumTestCurry1(2, 3));
 console.log(sumTestCurry1(2)(3));
+
+//Drag
+import './components/drag/drag.less';
+const dragable = new DragAble({
+    container: document.querySelector('.jui-drag-container'),
+    selector: '.jui-drag-element',
+});
+
+//ForEach return
+console.log('--------------------------------------------------------');
+const forEachTestArr = [1, 2, 3, 4, 5, 6, 7, 8];
+forEachTestArr.forEach((item, index) => {
+    if (item === 4) {
+        return 4; //Can't return, can't stop the loop.
+    }
+    console.log(item);
+});
+
+//Promise all
+const promiseAllTest = [
+    Promise.resolve('This is a promise result.'),
+    new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('Get the result after 1s.');
+        }, 1000)
+    }),
+    'This is a normal string.',
+    Promise.reject('Trigger a erreo'),
+];
+
+PromiseJUI.all(promiseAllTest).then(results => {
+    console.dir(results);
+}).catch(err => {
+    console.error(err);
+});
+
+//Thousand Seperator
+console.log(12345679.1234, Util.thousandSeperator(12345679.1234));
+console.log(123.1234, Util.thousandSeperator(123.1234));
+console.log(1234.1234, Util.thousandSeperator(1234.1234));
+
+//Find value path in object
+const findingPathObject = document.body;
+const findingName = 'information';
+
+function findingPath(dom, name) {
+    const path = [];
+    let isMatched = false;
+
+    function find(dom, name) {
+        path.push(dom.tagName.toLowerCase() + (dom.hasAttribute('class') ? `.${dom.className.split(' ').join('.')}` : '') + (dom.name ? `[name="${dom.name}"]` : ''));
+        if (dom.name === name) {
+            isMatched = true;
+        } else {
+            if (dom.children.length > 0) {
+                for (let element of dom.children) {
+                    if (find(element, name)) {
+                        break;
+                    }
+                }
+            }
+        }
+        if (isMatched) {
+            return isMatched;
+        }
+        path.pop();
+    }
+    find(dom, name);
+    return path.join('>');
+}
+console.dir(findingPath(findingPathObject, findingName));

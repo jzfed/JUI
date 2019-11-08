@@ -91,8 +91,7 @@ const Util = {
             }
         }
     },
-    deepClone(obj) {
-
+    deepClone(obj, hash = new WeakMap()) {
         //Primitives
         if (
             Util.objType(obj) === 'String' ||
@@ -104,13 +103,17 @@ const Util = {
             return obj;
         }
 
+        if (hash.has(obj)) {
+            return hash.get(obj);
+        }
+
         //Array
         if (Util.objType(obj) === 'Array') {
-            // copy[key] = obj[key].slice(0);
-            return obj.map(element => {
-                return Util.deepClone(element);
+            const copy = obj.map(element => {
+                hash.set(obj, element);
+                return Util.deepClone(element, hash);
             });
-
+            return copy;
         }
 
         //Object
@@ -119,7 +122,8 @@ const Util = {
             for (let key in obj) {
                 if (obj.hasOwnProperty(key)) {
                     const cloneValue = obj[key];
-                    copy[key] = Util.deepClone(cloneValue);
+                    hash.set(obj, cloneValue);
+                    copy[key] = Util.deepClone(cloneValue, hash);
                 }
             }
             return copy;
@@ -136,6 +140,26 @@ const Util = {
         //Map
 
         //Set
+    },
+    limitNumberMinMax(min, max, number) {
+        return Math.min(Math.max(min, number), max);
+    },
+    thousandSeperator(number) {
+        let numStr = '' + number;
+        let [integerStr, floatStr] = numStr.split('.');
+        let formatedStr = '';
+        let index = integerStr.length - 1;
+        let start = index - 2;
+        while (true) {
+            if (start <= 0) {
+                formatedStr = integerStr.slice(0, index + 1) + formatedStr;
+                break;
+            }
+            formatedStr = ',' + integerStr.slice(start, index + 1) + formatedStr;
+            index -= 3;
+            start -= 3;
+        }
+        return formatedStr + '.' + floatStr;
     }
 }
 export {

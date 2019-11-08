@@ -25,14 +25,20 @@ const deepCloneTestObject = {
             h: [
                 null,
                 {
-                    i: undefined
+                    i: undefined,
                 }
             ]
         }
+    },
+    j: {
+        k: null,
     }
 }
 
-console.dir(Util);
+deepCloneTestObject.j.k = deepCloneTestObject.j;
+deepCloneTestObject.f[1] = deepCloneTestObject.f
+
+console.dir(Util.deepClone(deepCloneTestObject));
 
 describe('JUI Test Case', function () {
     describe('Tip', function () {
