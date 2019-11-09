@@ -18,10 +18,12 @@
         border: 1px solid #CCC;
         transition: visibility ease-in-out .5s, opacity ease-in-out .5s;
         background-color: #FFF;
+        z-index: -1;
 
         &.show {
             visibility: visible;
             opacity: 1;
+            z-index: 1;
         }
 
         a {
