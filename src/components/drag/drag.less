@@ -8,6 +8,13 @@
             outline: 1px dotted #CCC;
             transition: left linear .05s, top linear .05s;
             user-select: none;
+            z-index: 9999;
+        }
+    }
+
+    .jui-drag-target {
+        &.can-drop {
+            border: 2px dashed #FFF;
         }
     }
 }

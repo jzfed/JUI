@@ -26,16 +26,31 @@
             z-index: 1;
         }
 
-        a {
-            color: #333;
-            height: 24px;
-            line-height: 24px;
-            display: block;
-            text-indent: 5px;
-        }
+        ul {
+            padding-left: 0;
+            margin-top: 0;
+            margin-bottom: 0;
 
-        a+a {
-            border-top: 1px dotted #CCC;
+            li {
+                color: #333;
+                height: 24px;
+                line-height: 24px;
+                display: block;
+                padding-left: 5px;
+
+                span {
+                    color: dodgerblue;
+                    font-weight: bold;
+                }
+
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+
+            li+li {
+                border-top: 1px dotted #CCC;
+            }
         }
     }
 }

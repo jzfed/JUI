@@ -4,10 +4,17 @@ import {
 class DragAble {
     constructor({
         container = document.body,
-        selector = ''
+        selector = '',
+        enterDropTarget = () => {},
+        leaveDropTarget = () => {},
+        mouseUpCallback = () => {},
     } = {}) {
         this.container = container;
         this.selector = selector;
+        this.enterDropTarget = enterDropTarget;
+        this.leaveDropTarget = leaveDropTarget;
+        this.mouseUpCallback = mouseUpCallback;
+        this.dropTarget = null;
         this.init();
     }
     init() {
@@ -15,6 +22,8 @@ class DragAble {
         this.unbindMove = this.unbindMove.bind(this);
         this.move = this.move.bind(this);
         this.moveThr = Util.throtting(this.move, 50);
+        this.enterDropTarget = this.enterDropTarget.bind(this);
+        this.enterDropTarget = this.enterDropTarget.bind(this);
         this.bindEvent();
     }
     bindEvent() {
@@ -60,6 +69,25 @@ class DragAble {
             posX,
             posY,
         });
+        this.canDrop(e);
+    }
+    canDrop(e) {
+        this.dragElement.hidden = true;
+        const elementUnderMouse = document.elementFromPoint(e.clientX, e.clientY);
+        this.dragElement.hidden = false;
+
+        if (elementUnderMouse && elementUnderMouse.closest('.jui-drag-target')) {
+            // console.dir(elementUnderMouse.closest('.jui-drag-target'));
+            if (this.dropTarget === null) {
+                this.dropTarget = elementUnderMouse.closest('.jui-drag-target');
+                this.enterDropTarget(this.dropTarget);
+            }
+        } else {
+            if (this.dropTarget) {
+                this.leaveDropTarget(this.dropTarget);
+                this.dropTarget = null;
+            }
+        }
     }
     setPos(posObj) {
         this.limit(posObj);
@@ -74,8 +102,10 @@ class DragAble {
         if (!this.dragElement) {
             return;
         }
-        // this.dragElement.classList.remove('drag-move');
+        this.mouseUpCallback(this.dragElement);
         this.container.removeEventListener('mousemove', this.moveThr);
+        // this.dragElement.classList.remove('drag-move');
+        this.dropTarget = null;
         this.dragElement = null;
         this.offsetX = 0;
         this.offsetY = 0;

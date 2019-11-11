@@ -40,6 +40,7 @@ import './components/button/button.less';
 import './components/input/auto-complete.less';
 
 const tip = new Tip();
+
 const formValidationRules = [{
         name: 'username',
         rules: [{
@@ -191,6 +192,12 @@ import './components/drag/drag.less';
 const dragable = new DragAble({
     container: document.querySelector('.jui-drag-container'),
     selector: '.jui-drag-element',
+    enterDropTarget: (dropTarget) => {
+        dropTarget.classList.add('can-drop');
+    },
+    leaveDropTarget: (dropTarget) => {
+        dropTarget.classList.remove('can-drop');
+    },
 });
 
 //ForEach return
@@ -212,7 +219,7 @@ const promiseAllTest = [
         }, 1000)
     }),
     'This is a normal string.',
-    Promise.reject('Trigger a erreo'),
+    Promise.reject('Trigger a error'),
 ];
 
 PromiseJUI.all(promiseAllTest).then(results => {
@@ -256,3 +263,180 @@ function findingPath(dom, name) {
     return path.join('>');
 }
 console.dir(findingPath(findingPathObject, findingName));
+
+//Find the max sales category by userId
+const buyHistory = [{
+        userId: 1,
+        productId: 3356,
+        count: 4,
+        date: '2019-11-10T03:37:46.295Z',
+    },
+    {
+        userId: 2,
+        productId: 345,
+        count: 2,
+        date: '2019-11-10T03:37:46.295Z',
+    },
+    {
+        userId: 2,
+        productId: 345,
+        count: 3,
+        date: '2019-11-10T03:37:46.295Z',
+    },
+    {
+        userId: 1,
+        productId: 678,
+        count: 5,
+        date: '2019-11-10T03:37:46.295Z',
+    },
+    {
+        userId: 1,
+        productId: 887,
+        count: 2,
+        date: '2019-11-10T03:37:46.295Z',
+    },
+];
+
+const productList = [{
+        pid: 3356,
+        category: 'food',
+        price: 40,
+    },
+    {
+        pid: 345,
+        category: 'cloth',
+        price: 999,
+    },
+    {
+        pid: 678,
+        category: 'book',
+        price: 20,
+    },
+    {
+        pid: 887,
+        category: 'tool',
+        price: 100,
+    }
+];
+
+function findMaxCostForUserId(userId) {
+    const userHistory = buyHistory.filter(item => {
+        if (item.userId === userId) {
+            return true;
+        }
+    });
+    if (userHistory.length === 0) return `The user id [${userId}] does not exist.`;
+    const getProductInfo = function (pId) {
+        return productList.find(item => {
+            if (item.pid === pId) {
+                return true;
+            }
+        })
+    }
+    const allCategory = {};
+    userHistory.forEach(item => {
+        // console.log(getProductInfo(item.productId));
+        const {
+            category,
+            price
+        } = getProductInfo(item.productId);
+        if (allCategory.hasOwnProperty(category)) {
+            allCategory[category] += price * item.count;
+        } else {
+            allCategory[category] = price * item.count;
+        }
+    });
+    const allCategoryArray = Object.entries(allCategory);
+    allCategoryArray.sort((a, b) => {
+        if (a[1] - b[1] > 0) return -1;
+        if (a[1] - b[1] < 0) return 1;
+        if (a[1] - b[1] === 0) return 0;
+    });
+    return allCategoryArray[0][0];
+}
+
+console.log(findMaxCostForUserId(1));
+console.log(findMaxCostForUserId(2));
+console.log(findMaxCostForUserId(3));
+
+
+//
+const A = {
+    name: 'featureA',
+    dependencies: [
+        'button',
+    ]
+}
+
+const B = {
+    name: 'featureB',
+    dependencies: []
+}
+
+const C = {
+    name: 'featureC',
+    dependencies: [
+        'button',
+        'checkbox',
+    ]
+}
+
+const button = {
+    name: 'button',
+    dependencies: []
+}
+
+const checkbox = {
+    name: 'checkbox',
+    dependencies: [
+        'icon',
+    ]
+}
+
+const icon = {
+    name: 'icon',
+    dependencies: []
+}
+
+// input: [A, B, C, button, checkbox, icon]
+// output: [
+// 	['featureA', 'button'],
+//   ['featureB'],
+//   ['featureC', 'button', 'checkbox', 'icon']
+// ]
+
+const analyze = function (modules) {
+    const allComponents = new Set();
+    const results = [];
+    const isComponent = function (module) {
+        return allComponents.has(module.name);
+    }
+    const hasDependencies = function (module) {
+        return module.dependencies.length > 0;
+    }
+    modules.forEach(module => {
+        if (hasDependencies(module)) {
+            module.dependencies.forEach(depName => {
+                allComponents.add(depName);
+            });
+        }
+    });
+    const getDependencies = function (module, tempResult, tempPathSet) {
+        tempResult.push(module.name);
+        if (!hasDependencies(module) || tempPathSet.has(module)) return;
+        tempPathSet.add(module);
+        module.dependencies.forEach(depName => {
+            getDependencies(modules.find((item) => depName === item.name), tempResult, tempPathSet);
+        });
+    }
+    modules.forEach(module => {
+        if (!isComponent(module)) {
+            const tempResult = [];
+            const tempPathSet = new Set();
+            getDependencies(module, tempResult, tempPathSet);
+            results.push(tempResult);
+        }
+    });
+    return results;
+}
+console.log(analyze([A, B, C, button, checkbox, icon]));
