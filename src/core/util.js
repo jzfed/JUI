@@ -1,5 +1,5 @@
 const Util = {
-    debouncing(fn, time) {
+    debouncing(fn, time = 100) {
         let timer;
         return function (...args) {
             const saveThis = this;
@@ -160,6 +160,33 @@ const Util = {
             start -= 3;
         }
         return formatedStr + '.' + floatStr;
+    },
+    textLimitation(textDom, maxLine = 1, moreChar = '...') {
+        const cloneTextDom = textDom.cloneNode(true);
+        const originalText = cloneTextDom.textContent.trim();
+        cloneTextDom.style.width = textDom.offsetWidth + 'px';
+        textDom.setAttribute('title', originalText);
+        cloneTextDom.style.position = 'fixed';
+        cloneTextDom.style.left = '-9999px';
+        cloneTextDom.style.visiablity = 'hidden';
+        cloneTextDom.textContent = moreChar;
+        document.body.append(cloneTextDom);
+        const oneLineHeight = cloneTextDom.clientHeight;
+        if (oneLineHeight === textDom.clientHeight) {
+            return cloneTextDom.remove();
+        }
+        let resultStr = '';
+        for (let char of originalText) {
+            cloneTextDom.textContent += char;
+            if (cloneTextDom.clientHeight > oneLineHeight * maxLine) {
+                resultStr = cloneTextDom.textContent;
+                resultStr = resultStr.slice(0, resultStr.length - 1);
+                resultStr = resultStr.slice(moreChar.length, resultStr.length) + resultStr.slice(0, moreChar.length);
+                break;
+            }
+        }
+        cloneTextDom.remove();
+        textDom.textContent = resultStr;
     }
 }
 export {

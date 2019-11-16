@@ -1,6 +1,6 @@
 import {
     Util
-} from '../../util';
+} from '../../core/util';
 class DragAble {
     constructor({
         container = document.body,

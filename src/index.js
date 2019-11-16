@@ -21,7 +21,7 @@ import {
 //Util
 import {
     Util
-} from './util';
+} from './core/util';
 
 //Dragable
 import {
@@ -31,7 +31,7 @@ import {
 //Promise
 import {
     PromiseJUI
-} from './promise';
+} from './core/promise';
 
 //Content
 import './components/content/content.less';
@@ -39,8 +39,21 @@ import './components/form/form.less';
 import './components/button/button.less';
 import './components/input/auto-complete.less';
 
+//Tip
 const tip = new Tip();
 
+//Scroll Tools
+import {
+    ScrollLoad,
+    IsInSight,
+} from './components/scroll/scroll';
+
+//Network
+import {
+    JSONP
+} from './core/network';
+
+//Form validation
 const formValidationRules = [{
         name: 'username',
         rules: [{
@@ -92,6 +105,7 @@ const validate = new Validate({
     rules: formValidationRules,
 });
 
+//Auto Complete
 const autoComplete = new AutoComplete({
     container: document.querySelector('.jui-ac-con'),
     url: '/mock/autoComplete.json?=',
@@ -360,7 +374,7 @@ console.log(findMaxCostForUserId(2));
 console.log(findMaxCostForUserId(3));
 
 
-//
+//Get feature dependencies.
 const A = {
     name: 'featureA',
     dependencies: [
@@ -440,3 +454,55 @@ const analyze = function (modules) {
     return results;
 }
 console.log(analyze([A, B, C, button, checkbox, icon]));
+
+//Text limitation
+const textLimiationDom = document.querySelector('.text-limitation');
+// Util.textLimitation(textLimiationDom);
+Util.textLimitation(textLimiationDom, 2);
+
+//Sroll load
+const scrollInElementContainer = document.querySelector('.scroll-in-element');
+const scrollLoadInElement = new ScrollLoad({
+    container: scrollInElementContainer,
+    callback: (con) => {
+        con.textContent += con.textContent;
+    }
+});
+const scrollLoadInDoc = new ScrollLoad({
+    callback: (con) => {
+        console.log('load')
+        const body = con.querySelector('body');
+        const scrollLoadElement = document.createDocumentFragment();
+        scrollLoadElement.append(document.createElement('hr'));
+        const p = document.createElement('p');
+        scrollLoadElement.append(p);
+        p.innerText = 'Scroll load content.';
+        scrollLoadElement.append(p);
+        document.body.append(scrollLoadElement);
+    }
+});
+
+//Is element in sight
+const scrollIsInSightElement = document.querySelector('.scroll-is-in-sight');
+const isInSight = new IsInSight({
+    element: scrollIsInSightElement,
+    callback: (element) => {
+        element.innerHTML = 'This element is in sight.'
+    }
+});
+
+//JSONP
+window.test = function (data) {
+    alert(JSON.stringify(data, null, 4));
+}
+//<script defer src="http://127.0.0.1:37238/jsonp?abc=123&callback=test"></script>
+const jsonp = new JSONP({
+    url: 'http://127.0.0.1:37238/jsonp',
+    data: {
+        abc: 123
+    },
+    callbackName: 'test',
+    callback: (data) => {
+        console.dir(data);
+    }
+});
