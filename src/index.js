@@ -12,6 +12,9 @@ import './components/tip/tip.less';
 import {
     Validate
 } from './components/form/validate';
+import {
+    FormRequest
+} from './components/form/form-request';
 
 //Auto Complete
 import {
@@ -105,10 +108,18 @@ const validate = new Validate({
     rules: formValidationRules,
 });
 
+//Form AJAX Request
+const formRequest = new FormRequest({
+    container: document.querySelector('.form-container'),
+    callback: (data) => {
+        console.log(data);
+    }
+});
+
 //Auto Complete
 const autoComplete = new AutoComplete({
     container: document.querySelector('.jui-ac-con'),
-    url: '/mock/autoComplete.json?=',
+    url: 'http://127.0.0.1:37238/query?=',
 });
 
 //Debouncing Test
@@ -493,7 +504,7 @@ const isInSight = new IsInSight({
 
 //JSONP
 window.test = function (data) {
-    alert(JSON.stringify(data, null, 4));
+    // alert(JSON.stringify(data, null, 4));
 }
 //<script defer src="http://127.0.0.1:37238/jsonp?abc=123&callback=test"></script>
 const jsonp = new JSONP({

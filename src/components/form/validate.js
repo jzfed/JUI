@@ -89,6 +89,7 @@ class Validate {
         this.validate();
         if (!this.pass) {
             e.preventDefault();
+            e.stopImmediatePropagation();
         }
     }
     bindEvent() {
