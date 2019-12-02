@@ -9,20 +9,24 @@
     left: 0;
     border-radius: 10px;
     padding: 10px 10px;
-    visibility: hidden;
+
     color: #FFF;
     background-color: rgba(0, 0, 0, .7);
     box-shadow: #ccc 1px 1px 5px;
+    visibility: hidden;
     opacity: 0;
-    transition: visibility 0s, opacity .5s linear;
+    transition: visibility .5s, opacity .5s linear;
 
     &.show {
-        display: block;
         visibility: visible;
         opacity: 1;
 
         .jui-tip-dom {
             display: block;
         }
+    }
+
+    a {
+        color: #FFF;
     }
 }
