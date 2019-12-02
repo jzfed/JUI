@@ -9,7 +9,7 @@ import {
 
 import {
     Util
-} from '../src/util';
+} from '../src/core/util';
 
 const deepCloneTestObject = {
     a: 1,
