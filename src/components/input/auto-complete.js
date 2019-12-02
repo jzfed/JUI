@@ -48,7 +48,9 @@ class AutoComplete {
         const searchText = this.input.value;
         const searchUrl = this.url + searchText;
         const regExp = new RegExp(`(${searchText})`, 'g');
-        fetch(searchUrl)
+        fetch(searchUrl, {
+                credentials: 'include'
+            })
             .then(response => response.json())
             .then(json => {
                 let htmlString = '<ul>';

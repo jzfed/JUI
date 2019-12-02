@@ -43,7 +43,7 @@ import './components/button/button.less';
 import './components/input/auto-complete.less';
 
 //Tip
-const tip = new Tip();
+// const tip = new Tip();
 
 //Scroll Tools
 import {
@@ -119,7 +119,7 @@ const formRequest = new FormRequest({
 //Auto Complete
 const autoComplete = new AutoComplete({
     container: document.querySelector('.jui-ac-con'),
-    url: 'http://127.0.0.1:37238/query?=',
+    url: 'http://localhost:37238/query?=',
 });
 
 //Debouncing Test
@@ -517,3 +517,10 @@ const jsonp = new JSONP({
         console.dir(data);
     }
 });
+
+//This bind test
+const testFn = function () {
+    console.log(this);
+}
+const submitButton = document.querySelector('.jui-button');
+submitButton.addEventListener('click', testFn);

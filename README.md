@@ -7,18 +7,34 @@ Components list
 - Tip
 - Tabs
 - Modal
+- Drag
+- Auto Complete
+- Form Validation
+- AJAX Form 
+- JSONP
+- Sroll load
+- Lazy load
+- Text length limitation
+
 
 Install
 ----
+`npm install`
 
-
-How to use it?
+How to use?
 ----
 We have some code sample in the directory example. We will build a detailed API documents in the future.
 
-How to develop it?
+How to develop?
 ----
+- Start front-end development
 `npm run start`
+
+- Run the test case
+`npm run test`
+
+- Run the mock data server
+`npm run mock`
 
 Trouble shouting
 ----

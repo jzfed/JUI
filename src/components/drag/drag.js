@@ -21,7 +21,7 @@ class DragAble {
         this.bindMove = this.bindMove.bind(this);
         this.unbindMove = this.unbindMove.bind(this);
         this.move = this.move.bind(this);
-        this.moveThr = Util.throtting(this.move, 50);
+        this.moveThr = Util.throtting(this.move, 25);
         this.enterDropTarget = this.enterDropTarget.bind(this);
         this.enterDropTarget = this.enterDropTarget.bind(this);
         this.bindEvent();
@@ -91,8 +91,9 @@ class DragAble {
     }
     setPos(posObj) {
         this.limit(posObj);
-        this.dragElement.style.left = `${posObj.posX}px`;
-        this.dragElement.style.top = `${posObj.posY}px`;
+        // this.dragElement.style.left = `${posObj.posX}px`;
+        // this.dragElement.style.top = `${posObj.posY}px`;
+        this.dragElement.style.transform = `translate(${posObj.posX}px, ${posObj.posY}px)`;
     }
     limit(posObj) {
         posObj.posX = Util.limitNumberMinMax(0, this.maxPosX, posObj.posX);

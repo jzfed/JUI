@@ -16,6 +16,7 @@ class FormRequest {
         fetch(this.form.action, {
             method: 'POST',
             body: this.formatFormData(), // data can be `string` or {object}!
+            credentials: 'include',
         }).then(response => {
             return response.json();
         }).then(data => {

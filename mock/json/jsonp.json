@@ -1,5 +1,6 @@
 {
     "name": "Jason",
     "age": 20,
-    "gender": "male"
+    "gender": "male",
+    "tel": 88888888
 }
