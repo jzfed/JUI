@@ -1,10 +1,9 @@
 const http = require('http');
 const urlTool = require('url');
 const querystring = require('querystring');
-// const bodyPaeser = require('body-parser');
-const fs = require('fs');
-const path = require('path');
+
 const etag = require('etag');
+const util = require('./util');
 
 //Mock server configuration
 const serverConfig = {
@@ -24,24 +23,15 @@ const server = http.createServer((request, response) => {
     console.log(`method:${request.method}`);
 });
 
-const readMockJSON = function (fileName) {
-    return fs.promises.readFile(path.join(__dirname, '/json', fileName), {
-        encoding: 'utf8'
-    });
-}
-
-const readMockJSONState = function (fileName) {
-    return fs.promises.stat(path.join(__dirname, '/json', fileName));
-}
 
 server.on('request', (request, response) => {
     const urlObj = urlTool.parse(request.url);
 
     //Cache Test
-    if (urlObj.pathname === '/cache/test.json') {
+    if (urlObj.pathname === '/cacheTest') {
         // console.log(request.headers);
-        const fileName = 'jsonp.json';
-        const fileInfo = [readMockJSON(fileName), readMockJSONState(fileName)];
+        const fileName = util.getMockJsonFileName(urlObj.pathname);
+        const fileInfo = [util.readMockJSON(fileName), util.readMockJSONState(fileName)];
         Promise.all(fileInfo).then(resultArr => {
             const [fileContent, fileStats] = resultArr;
             const etagHash = etag(fileContent);
@@ -60,6 +50,7 @@ server.on('request', (request, response) => {
             });
             response.end(fileContent);
         });
+        return;
     }
 
     //Match url /jsonp
@@ -69,7 +60,7 @@ server.on('request', (request, response) => {
         // console.log(request.headers); //Can get cookie..
         if (callbackName) {
             //Mock JSON data
-            readMockJSON('jsonp.json').then(file => {
+            util.readMockJSON(util.getMockJsonFileName(urlObj.pathname)).then(file => {
                 response.writeHead(200, {
                     'Content-Type': 'application/x-javascript',
                     'Cache-Control': 'max-age=60;HttpOnly',
@@ -78,11 +69,12 @@ server.on('request', (request, response) => {
                 response.end(`${callbackName}(${file})`);
             });
         }
+        return;
     }
 
     //Match url /query
     if (urlObj.pathname === '/query') {
-        readMockJSON('auto-complete.json').then(file => {
+        util.readMockJSON('auto-complete.json').then(file => {
             console.log(request.headers);
             response.writeHead(200, {
                 'Content-Type': 'application/json',
@@ -91,6 +83,7 @@ server.on('request', (request, response) => {
             });
             response.end(file);
         });
+        return;
     }
 
     //Match url /signup
@@ -110,6 +103,7 @@ server.on('request', (request, response) => {
                 response.end(JSON.stringify(queryParam));
             })
         }
+        return;
     }
 });
 

@@ -34,7 +34,7 @@ import {
 //Promise
 import {
     PromiseJUI
-} from './core/promise';
+} from './core/polyfill';
 
 //Content
 import './components/content/content.less';

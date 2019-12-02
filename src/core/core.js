@@ -1,6 +1,6 @@
 class JUI {
-    static mixin() {
-
+    static mixin(originalClass, ...mixObjects) {
+        Object.assign(originalClass.prototype, ...mixObjects);
     }
 }
 export {

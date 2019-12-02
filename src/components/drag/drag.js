@@ -1,6 +1,12 @@
 import {
     Util
 } from '../../core/util';
+import {
+    JUI
+} from '../../core/core';
+import {
+    debug
+} from '../../core/debug';
 class DragAble {
     constructor({
         container = document.body,
@@ -62,7 +68,7 @@ class DragAble {
         this.container.addEventListener('mousemove', this.moveThr);
     }
     move(e) {
-        // console.log('move');
+        this.log(e);
         const posX = e.pageX - this.containerX - this.offsetX;
         const posY = e.pageY - this.containerY - this.offsetY;
         this.setPos({
@@ -112,6 +118,9 @@ class DragAble {
         this.offsetY = 0;
     }
 }
+
+JUI.mixin(DragAble, debug);
+
 export {
     DragAble,
 }
