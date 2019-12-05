@@ -1,6 +1,10 @@
+import {
+    Util,
+} from './util';
 const debug = {
     log(...info) {
-        console.log(`[${this.constructor.name}]${new Date()}`);
+        const timestamp = Util.formateTime(new Date(), 'YYYY/MM/DD hh:mm:ss:sss');
+        console.log(`[${this.constructor.name}][${timestamp}]`);
         console.log.apply(undefined, info);
     }
 };

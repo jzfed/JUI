@@ -187,6 +187,38 @@ const Util = {
         }
         cloneTextDom.remove();
         textDom.textContent = resultStr;
+    },
+    formateTime(date, format) {
+        const replacer = {
+            'YYYY': () => {
+                return date.getFullYear();
+            },
+            'MM': () => {
+                return date.getMonth() + 1;
+            },
+            'DD': () => {
+                return date.getDate();
+            },
+            'hh': () => {
+                return date.getHours();
+            },
+            'mm': () => {
+                return date.getMinutes();
+            },
+            'ss': () => {
+                return date.getSeconds();
+            },
+            'sss': () => {
+                return date.getMilliseconds();
+            },
+            'X': () => {
+                return date.getTime();
+            }
+        }
+        for (let key in replacer) {
+            format = format.replace(key, replacer[key]);
+        }
+        return format;
     }
 }
 export {
