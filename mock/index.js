@@ -28,7 +28,7 @@ server.on('request', (request, response) => {
     const urlObj = urlTool.parse(request.url);
 
     //Cache Test
-    if (urlObj.pathname === '/cacheTest') {
+    if (urlObj.pathname === '/cache-test') {
         // console.log(request.headers);
         const fileName = util.getMockJsonFileName(urlObj.pathname);
         const fileInfo = [util.readMockJSON(fileName), util.readMockJSONState(fileName)];
@@ -50,6 +50,16 @@ server.on('request', (request, response) => {
             });
             response.end(fileContent);
         });
+        return;
+    }
+
+    //
+    if (urlObj.pathname === '/mutipleRequest') {
+        const urlParam = new URLSearchParams(urlTool.parse(request.url).query);
+        const index = urlParam.get('index');
+        setTimeout(() => {
+            response.end(`Response ${index} after 3000ms.`);
+        }, 3000);
         return;
     }
 

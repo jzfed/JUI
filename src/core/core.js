@@ -79,7 +79,7 @@ class Base extends EventEmitter {
     }
 }
 
-//Mixin with debug module
+//Mixin with debug module, mutiple class extends
 JUI.mixin(Base, debug);
 
 export {

@@ -203,10 +203,12 @@ const Util = {
                 return date.getHours();
             },
             'mm': () => {
-                return date.getMinutes();
+                const minutes = date.getMinutes();
+                return minutes > 9 ? minutes : `0${minutes}`;
             },
             'ss': () => {
-                return date.getSeconds();
+                const seconds = date.getSeconds();
+                return seconds > 9 ? seconds : `0${seconds}`;
             },
             'sss': () => {
                 return date.getMilliseconds();
@@ -219,6 +221,27 @@ const Util = {
             format = format.replace(key, replacer[key]);
         }
         return format;
+    },
+    convertObjectToURLParamString(dataObject, externalData) {
+        const mergedData = Object.assign({}, dataObject, externalData);
+        const mergedDataArray = Object.entries(mergedData);
+        const paramString = mergedDataArray.map(item => {
+            return item[0] + '=' + encodeURIComponent(item[1]);
+        }).join('&');
+        return paramString;
+    },
+    convertURLParamStringToObject(url) {
+        const regExp = /^[^?]+\?([^#]+)#?(\w+)?$/g;
+        const [, searchParam, hash] = regExp.exec(url);
+        const result = {};
+        result.query = {};
+        const paramArray = searchParam.split('&');
+        paramArray.forEach(item => {
+            const [key, value] = item.split('=');
+            result.query[key] = decodeURIComponent(value);
+        });
+        result.hash = hash;
+        return result;
     }
 }
 export {
