@@ -1,7 +1,11 @@
 JUI
 ====
+[![build status](https://api.travis-ci.com/jzfed/JUI.svg?branch=master)](https://travis-ci.com/jzfed/JUI)
+[![Gitter](https://badges.gitter.im/JUI-chat/community.svg)](https://gitter.im/JUI-chat/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
+[![Apache License 2.0](https://img.shields.io/github/license/jzfed/JUI?color=blue)](https://github.com/jzfed/JUI/blob/master/LICENSE)
 
-JUI is an open source javascript UI components library. Our goal is build a pure javascript UI components libray that simple and easy to use. We don't need to consider about the browser compatibility problem. We will focus on how to write a pure javascript component.
+
+JUI is an open source javascript UI components library. Our goal is build a pure javascript UI components library that simple and easy to use. We don't need to consider about the browser compatibility problem. We just focus on how to write a pure javascript high performance components.
 
 Components list
 ----

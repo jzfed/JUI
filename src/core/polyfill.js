@@ -23,9 +23,48 @@ const PromiseJUI = {
                 });
             }
         });
-    }
+    },
 }
 window.Promise.all = window.Promise.all || PromiseJUI;
+const JUIFetch = function (url, method = 'GET') {
+    return new Promise((resolve, reject) => {
+        const XHR = new XMLHttpRequest();
+        XHR.open(method, url);
+        XHR.send();
+        XHR.addEventListener('load', (data) => {
+            if (XHR.status === 200 && XHR.readyState === 4) {
+                const responseHeader = XHR.getAllResponseHeaders().split('\n').reduce((acc, cur) => {
+                    const [key, value] = cur.split(': ');
+                    if (key) {
+                        acc[key] = value.trim();
+                    }
+                    return acc;
+                }, {});
+                if (responseHeader['content-type'] === 'application/json') {
+                    return resolve(JSON.parse(XHR.response));
+                }
+                resolve(XHR.response);
+            }
+
+        });
+        XHR.addEventListener('error', (err) => {
+            reject(err);
+        });
+    });
+}
+const JUITemplate = function (templateObj) {
+    const regExp = /\$\{(\w+)\}/g;
+    const convertToVariable = function (variableName) {
+        return templateObj.data[variableName];
+    }
+    return templateObj.template.replace(regExp, (matchStr, group) => {
+        // console.log(matchStr);
+        // console.log(group);
+        return convertToVariable(group);
+    });
+}
 export {
     PromiseJUI,
+    JUIFetch,
+    JUITemplate,
 }

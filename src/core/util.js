@@ -145,21 +145,22 @@ const Util = {
         return Math.min(Math.max(min, number), max);
     },
     thousandSeperator(number) {
-        let numStr = '' + number;
-        let [integerStr, floatStr] = numStr.split('.');
-        let formatedStr = '';
-        let index = integerStr.length - 1;
-        let start = index - 2;
-        while (true) {
-            if (start <= 0) {
-                formatedStr = integerStr.slice(0, index + 1) + formatedStr;
-                break;
-            }
-            formatedStr = ',' + integerStr.slice(start, index + 1) + formatedStr;
-            index -= 3;
-            start -= 3;
-        }
-        return formatedStr + '.' + floatStr;
+        return ('' + number).replace(/(?<!\.\d*)(\d)(?=(\d{3})+(?!\d))/g, '$&,');
+        // let numStr = '' + number;
+        // let [integerStr, floatStr] = numStr.split('.');
+        // let formatedStr = '';
+        // let index = integerStr.length - 1;
+        // let start = index - 2;
+        // while (true) {
+        //     if (start <= 0) {
+        //         formatedStr = integerStr.slice(0, index + 1) + formatedStr;
+        //         break;
+        //     }
+        //     formatedStr = ',' + integerStr.slice(start, index + 1) + formatedStr;
+        //     index -= 3;
+        //     start -= 3;
+        // }
+        // return formatedStr + '.' + floatStr;
     },
     textLimitation(textDom, maxLine = 1, moreChar = '...') {
         const cloneTextDom = textDom.cloneNode(true);
@@ -187,6 +188,61 @@ const Util = {
         }
         cloneTextDom.remove();
         textDom.textContent = resultStr;
+    },
+    formateTime(date, format) {
+        const replacer = {
+            'YYYY': () => {
+                return date.getFullYear();
+            },
+            'MM': () => {
+                return date.getMonth() + 1;
+            },
+            'DD': () => {
+                return date.getDate();
+            },
+            'hh': () => {
+                return date.getHours();
+            },
+            'mm': () => {
+                const minutes = date.getMinutes();
+                return minutes > 9 ? minutes : `0${minutes}`;
+            },
+            'ss': () => {
+                const seconds = date.getSeconds();
+                return seconds > 9 ? seconds : `0${seconds}`;
+            },
+            'sss': () => {
+                return date.getMilliseconds();
+            },
+            'X': () => {
+                return date.getTime();
+            }
+        }
+        for (let key in replacer) {
+            format = format.replace(key, replacer[key]);
+        }
+        return format;
+    },
+    convertObjectToURLParamString(dataObject, externalData) {
+        const mergedData = Object.assign({}, dataObject, externalData);
+        const mergedDataArray = Object.entries(mergedData);
+        const paramString = mergedDataArray.map(item => {
+            return item[0] + '=' + encodeURIComponent(item[1]);
+        }).join('&');
+        return paramString;
+    },
+    convertURLParamStringToObject(url) {
+        const regExp = /^[^?]+\?([^#]+)#?(\w+)?$/g;
+        const [, searchParam, hash] = regExp.exec(url);
+        const result = {};
+        result.query = {};
+        const paramArray = searchParam.split('&');
+        paramArray.forEach(item => {
+            const [key, value] = item.split('=');
+            result.query[key] = decodeURIComponent(value);
+        });
+        result.hash = hash;
+        return result;
     }
 }
 export {

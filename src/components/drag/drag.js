@@ -2,12 +2,11 @@ import {
     Util
 } from '../../core/util';
 import {
-    JUI
+    Base
 } from '../../core/core';
-import {
-    debug
-} from '../../core/debug';
-class DragAble {
+
+
+class DragAble extends Base {
     constructor({
         container = document.body,
         selector = '',
@@ -15,6 +14,7 @@ class DragAble {
         leaveDropTarget = () => {},
         mouseUpCallback = () => {},
     } = {}) {
+        super();
         this.container = container;
         this.selector = selector;
         this.enterDropTarget = enterDropTarget;
@@ -24,15 +24,19 @@ class DragAble {
         this.init();
     }
     init() {
+        super.init();
+        this.bindEvent();
+    }
+    beforeBind() {
         this.bindMove = this.bindMove.bind(this);
         this.unbindMove = this.unbindMove.bind(this);
         this.move = this.move.bind(this);
         this.moveThr = Util.throtting(this.move, 25);
         this.enterDropTarget = this.enterDropTarget.bind(this);
         this.enterDropTarget = this.enterDropTarget.bind(this);
-        this.bindEvent();
     }
     bindEvent() {
+        super.bindEvent();
         this.container.addEventListener('mousedown', this.bindMove);
         this.container.addEventListener('mouseup', this.unbindMove);
         this.container.addEventListener('mouseleave', this.unbindMove);
@@ -118,8 +122,6 @@ class DragAble {
         this.offsetY = 0;
     }
 }
-
-JUI.mixin(DragAble, debug);
 
 export {
     DragAble,

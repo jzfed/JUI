@@ -1,6 +1,10 @@
+import {
+    Util,
+} from './util';
 const debug = {
     log(...info) {
-        console.log(`[${this.constructor.name}]${new Date()}`);
+        const timestamp = Util.formateTime(new Date(), 'YYYY/MM/DD hh:mm:ss:sss');
+        console.log(`[%c${this.constructor.name}%c][%c${timestamp}%c]`, 'color: seagreen', 'color: lightgray', 'color: deepskyblue', 'color: lightgray', );
         console.log.apply(undefined, info);
     }
 };

@@ -33,7 +33,9 @@ import {
 
 //Promise
 import {
-    PromiseJUI
+    PromiseJUI,
+    JUIFetch,
+    JUITemplate,
 } from './core/polyfill';
 
 //Content
@@ -53,7 +55,8 @@ import {
 
 //Network
 import {
-    JSONP
+    JSONP,
+    maxMultipleRequest,
 } from './core/network';
 
 //Form validation
@@ -252,6 +255,12 @@ PromiseJUI.all(promiseAllTest).then(results => {
 }).catch(err => {
     console.error(err);
 });
+
+//Fetch data
+JUIFetch('http://localhost:37238/cache-test').then(data => {
+    console.log('JUIFetchData:', data);
+});
+
 
 //Thousand Seperator
 console.log(12345679.1234, Util.thousandSeperator(12345679.1234));
@@ -514,9 +523,42 @@ const jsonp = new JSONP({
     },
     callbackName: 'test',
     callback: (data) => {
-        console.dir(data);
+        jsonp.log(data);
     }
 });
+
+//Mutiple Request
+const urls = [
+    'http://127.0.0.1:37238/mutipleRequest?index=0',
+    'http://127.0.0.1:37238/mutipleRequest?index=1',
+    'http://127.0.0.1:37238/mutipleRequest?index=2',
+    'http://127.0.0.1:37238/mutipleRequest?index=3',
+    'http://127.0.0.1:37238/mutipleRequest?index=4',
+    'http://127.0.0.1:37238/mutipleRequest?index=5',
+    'http://127.0.0.1:37238/mutipleRequest?index=6',
+    'http://127.0.0.1:37238/mutipleRequest?index=7',
+    'http://127.0.0.1:37238/mutipleRequest?index=8',
+    'http://127.0.0.1:37238/mutipleRequest?index=9',
+    'http://127.0.0.1:37238/mutipleRequest?index=10',
+    'http://127.0.0.1:37238/mutipleRequest?index=11',
+    'http://127.0.0.1:37238/mutipleRequest?index=12',
+];
+maxMultipleRequest(urls, 5).then(results => {
+    console.log(results);
+}).catch(err => {
+    alert(err);
+});
+
+//Template test
+const templateObj = {
+    data: {
+        templateName: 'Jason',
+        templateHi: 'Hello,',
+    },
+    template: '${templateHi} My name is ${templateName}. Glad to see you.'
+}
+console.log(JUITemplate(templateObj));
+
 
 //This bind test
 const testFn = function () {
@@ -524,3 +566,7 @@ const testFn = function () {
 }
 const submitButton = document.querySelector('.jui-button');
 submitButton.addEventListener('click', testFn);
+
+//
+const urlString = 'https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/entries?key1=value1&key2=value2&cnname=%E5%BC%A0%20%E9%BE%99#abcd';
+console.log(Util.convertURLParamStringToObject(urlString));
