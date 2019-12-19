@@ -35,6 +35,7 @@ import {
 import {
     PromiseJUI,
     JUIFetch,
+    JUITemplate,
 } from './core/polyfill';
 
 //Content
@@ -547,6 +548,16 @@ maxMultipleRequest(urls, 5).then(results => {
 }).catch(err => {
     alert(err);
 });
+
+//Template test
+const templateObj = {
+    data: {
+        templateName: 'Jason',
+        templateHi: 'Hello,',
+    },
+    template: '${templateHi} My name is ${templateName}. Glad to see you.'
+}
+console.log(JUITemplate(templateObj));
 
 
 //This bind test

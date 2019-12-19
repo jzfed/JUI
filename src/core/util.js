@@ -145,21 +145,22 @@ const Util = {
         return Math.min(Math.max(min, number), max);
     },
     thousandSeperator(number) {
-        let numStr = '' + number;
-        let [integerStr, floatStr] = numStr.split('.');
-        let formatedStr = '';
-        let index = integerStr.length - 1;
-        let start = index - 2;
-        while (true) {
-            if (start <= 0) {
-                formatedStr = integerStr.slice(0, index + 1) + formatedStr;
-                break;
-            }
-            formatedStr = ',' + integerStr.slice(start, index + 1) + formatedStr;
-            index -= 3;
-            start -= 3;
-        }
-        return formatedStr + '.' + floatStr;
+        return ('' + number).replace(/(?<!\.\d*)(\d)(?=(\d{3})+(?!\d))/g, '$&,');
+        // let numStr = '' + number;
+        // let [integerStr, floatStr] = numStr.split('.');
+        // let formatedStr = '';
+        // let index = integerStr.length - 1;
+        // let start = index - 2;
+        // while (true) {
+        //     if (start <= 0) {
+        //         formatedStr = integerStr.slice(0, index + 1) + formatedStr;
+        //         break;
+        //     }
+        //     formatedStr = ',' + integerStr.slice(start, index + 1) + formatedStr;
+        //     index -= 3;
+        //     start -= 3;
+        // }
+        // return formatedStr + '.' + floatStr;
     },
     textLimitation(textDom, maxLine = 1, moreChar = '...') {
         const cloneTextDom = textDom.cloneNode(true);

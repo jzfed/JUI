@@ -52,7 +52,19 @@ const JUIFetch = function (url, method = 'GET') {
         });
     });
 }
+const JUITemplate = function (templateObj) {
+    const regExp = /\$\{(\w+)\}/g;
+    const convertToVariable = function (variableName) {
+        return templateObj.data[variableName];
+    }
+    return templateObj.template.replace(regExp, (matchStr, group) => {
+        // console.log(matchStr);
+        // console.log(group);
+        return convertToVariable(group);
+    });
+}
 export {
     PromiseJUI,
     JUIFetch,
+    JUITemplate,
 }
