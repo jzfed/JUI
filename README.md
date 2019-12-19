@@ -1,8 +1,6 @@
 JUI
 ====
 
-[![Join the chat at https://gitter.im/JUI-chat/community](https://badges.gitter.im/JUI-chat/community.svg)](https://gitter.im/JUI-chat/community?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
-
 JUI is an open source javascript UI components library. Our goal is build a pure javascript UI components libray that simple and easy to use. We don't need to consider about the browser compatibility problem. We will focus on how to write a pure javascript component.
 
 Components list
