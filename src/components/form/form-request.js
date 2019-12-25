@@ -1,8 +1,13 @@
-class FormRequest {
+import {
+    Base
+} from '../../core/core';
+
+class FormRequest extends Base {
     constructor({
         container = document.body,
         callback = () => {},
     } = {}) {
+        super();
         this.container = container;
         this.callback = callback;
         this.form = this.container.querySelector('form');

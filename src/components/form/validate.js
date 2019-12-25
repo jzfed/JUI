@@ -1,8 +1,13 @@
-class Validate {
+import {
+    Base
+} from '../../core/core';
+
+class Validate extends Base {
     constructor({
         container = document.body,
         rules = []
     } = {}) {
+        super();
         this.container = typeof container === 'string' ? document.querySelector(container) : container;
         this.rules = rules;
         if (this.rules.length === 0) return;
@@ -32,7 +37,7 @@ class Validate {
 
     }
     init() {
-        console.dir(this.rules);
+        this.log('rules', this.rules);
         if (this.container.tagName.toLowerCase() === 'form' && this.container.classList.contains('jui-form')) {
             this.container.classList.add('jui-validate');
         }

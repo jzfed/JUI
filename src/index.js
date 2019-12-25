@@ -1,5 +1,6 @@
 //CSS Reset
-import 'normalize.css';
+import './components/common/global.less';
+// import 'normalize.less';
 
 //UI Components
 //Tip
@@ -9,6 +10,8 @@ import {
 import './components/tip/tip.less';
 
 //Form
+import './components/form/form.less';
+import './components/button/button.less';
 import {
     Validate
 } from './components/form/validate';
@@ -17,6 +20,7 @@ import {
 } from './components/form/form-request';
 
 //Auto Complete
+import './components/input/auto-complete.less';
 import {
     AutoComplete
 } from './components/input/auto-complete';
@@ -40,9 +44,7 @@ import {
 
 //Content
 import './components/content/content.less';
-import './components/form/form.less';
-import './components/button/button.less';
-import './components/input/auto-complete.less';
+
 
 //Tip
 // const tip = new Tip();
@@ -154,37 +156,6 @@ const autoComplete = new AutoComplete({
 // window.addEventListener('scroll', scrollLogThrotting);
 
 //Cache Test
-const hashNameConverter = {
-    '[object String]': item => item,
-    '[object Number]': item => item,
-    '[object Boolean]': item => item,
-    '[object Undefined]': item => 'undefined',
-    '[object Null]': item => 'null',
-    '[object Symbol]': item => item.toString(),
-    '[object Function]': item => item.name,
-    '[object Array]': item => item.toString(),
-    '[object Object]': item => JSON.stringify(item),
-};
-
-function hashParameter(...args) {
-    console.log('args', Object.prototype.toString.call(args)); //Array Object
-    // console.dir(args);
-    console.log('arguments', Object.prototype.toString.call(arguments)); //Array Liked Object
-    // console.dir(arguments);
-    // Array.prototype.forEach.call(arguments, item => console.log(item)); //ForEach method inject into array like object.
-    const paramStringArr = args.map(item => {
-        const itemType = Object.prototype.toString.call(item);
-        return hashNameConverter[itemType](item);
-    });
-    const paramString = paramStringArr.join('');
-    console.log(paramString);
-}
-
-const paramFunction = () => {};
-const paramObject = {};
-const paramArray = [];
-hashParameter('string', 123, true, Symbol('symName'), undefined, null, paramFunction, paramObject, paramArray);
-
 const highCPUCompute = function (num) {
     let sum = 0;
     for (let i = 0; i < num; i++) {
@@ -228,8 +199,6 @@ const dragable = new DragAble({
     },
 });
 
-
-
 //Promise all
 const promiseAllTest = [
     Promise.resolve('This is a promise result.'),
@@ -252,16 +221,6 @@ JUIPromise.all(promiseAllTest).then(results => {
 JUIFetch('http://localhost:37238/cache-test').then(data => {
     console.log('JUIFetchData:', data);
 });
-
-
-//Thousand Seperator
-console.log(12345679.1234, Util.thousandSeperator(12345679.1234));
-console.log(123.1234, Util.thousandSeperator(123.1234));
-console.log(1234.1234, Util.thousandSeperator(1234.1234));
-
-
-
-
 
 
 //Text limitation
@@ -355,7 +314,3 @@ const testFn = function () {
 }
 const submitButton = document.querySelector('.jui-button');
 submitButton.addEventListener('click', testFn);
-
-//
-const urlString = 'https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams/entries?key1=value1&key2=value2&cnname=%E5%BC%A0%20%E9%BE%99#abcd';
-console.log(Util.convertURLParamStringToObject(urlString));
