@@ -1,6 +1,8 @@
 import {
     debug
 } from './debug';
+
+//Global static method
 class JUI {
     static mixin(originalClass, ...mixObjects) {
         Object.assign(originalClass.prototype, ...mixObjects);
@@ -8,6 +10,7 @@ class JUI {
 
 }
 
+//Event emitter
 class EventEmitter {
     constructor() {
         this.listener = {
@@ -55,6 +58,7 @@ class EventEmitter {
     }
 }
 
+//Base class
 class Base extends EventEmitter {
     constructor() {
         super();

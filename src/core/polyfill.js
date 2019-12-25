@@ -1,4 +1,4 @@
-const PromiseJUI = {
+const JUIPromise = {
     all(promises) {
         return new Promise((resolve, reject) => {
             const results = [];
@@ -25,7 +25,7 @@ const PromiseJUI = {
         });
     },
 }
-window.Promise.all = window.Promise.all || PromiseJUI;
+window.Promise.all = window.Promise.all || JUIPromise;
 const JUIFetch = function (url, method = 'GET') {
     return new Promise((resolve, reject) => {
         const XHR = new XMLHttpRequest();
@@ -64,7 +64,7 @@ const JUITemplate = function (templateObj) {
     });
 }
 export {
-    PromiseJUI,
+    JUIPromise,
     JUIFetch,
     JUITemplate,
 }
