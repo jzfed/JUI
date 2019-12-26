@@ -87,7 +87,5 @@ describe('JUI Test Case', function () {
         });
     });
 
-    //string123trueSymbol(symName)undefinednullparamFunction{}
-    // hashParameter('string', 123, true, Symbol('symName'), undefined, null, paramFunction, paramObject, paramArray);
 
 });

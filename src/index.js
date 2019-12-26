@@ -306,11 +306,3 @@ const templateObj = {
     template: '${templateHi} My name is ${templateName}. Glad to see you.'
 }
 console.log(JUITemplate(templateObj));
-
-
-//This bind test
-const testFn = function () {
-    console.log(this);
-}
-const submitButton = document.querySelector('.jui-button');
-submitButton.addEventListener('click', testFn);
