@@ -5,7 +5,7 @@ JUI
 [![Apache License 2.0](https://img.shields.io/github/license/jzfed/JUI?color=blue)](https://github.com/jzfed/JUI/blob/master/LICENSE)
 
 
-JUI is an open source javascript UI components library. Our goal is build a pure javascript UI components library that simple and easy to use. We don't need to consider about the browser compatibility problem. We just focus on how to write a pure javascript high performance components.
+JUI is an open source javascript UI components library. Our goal is build a pure javascript UI components library that simple and easy to use. We don't need to consider about the old version browser compatibility problem. We just focus on how to write a responsiable and reusable components with high performance.
 
 Features
 ----
